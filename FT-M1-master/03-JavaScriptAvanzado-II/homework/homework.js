@@ -34,8 +34,9 @@ function cacheFunction(cb) {
   /*
   Ejercicio 2
 
-  Tu tarea aquí es lograr, mediante un closure, que cacheFunction actúe como una memoria caché para el callback que recibe por
-  parámetro (cb); es decir, que "recuerde" el resultado de cada operación que hace, de manera que, al realizar una operación por
+  Tu tarea aquí es lograr, mediante un closure, que cacheFunction actúe como una memoria caché para el callback
+  que recibe por
+  parámetro (cb); es decir, que "recuerde" el resultado de cada operación que hace, de manera que,al realizar una operación por
   segunda vez, se pueda obtener el resultado de esa "memoria" sin tener que efectuar otra vez cálculos que ya se hicieron anteriormente.
 
 
@@ -66,7 +67,8 @@ almacene en alguna memoria.
 
 Quien es la memoria? Usare a un objeto, donde cada propiedad sea el parametro recibido, y cada valor, el resultado
 de la operacion dada por el cb.
-----------------------------------------------------------------------------------------------------------------------*/
+-----------------------------------------------------------------------------------------------------------------*/
+
 var memoria = {};
 return function(x) {
   if(memoria.hasOwnProperty(x)) {
@@ -114,12 +116,13 @@ let getNombreAlumno = getNombre.bind(alumno);
 */
 
 function crearCadena(delimitadorIzquierda, delimitadorDerecha, cadena) {
-  return delimitadorIzquierda + cadena + delimitadorDerecha;
+  return  delimitadorIzquierda + cadena + delimitadorDerecha;
 }
 
-let textoAsteriscos = crearCadena.bind(null, '*', '*');
-let textoGuiones = crearCadena.bind(null, "-", "-");
-let textoUnderscore = crearCadena.bind(null, "_", "_");
+
+let textoAsteriscos = crearCadena.bind(this, '*', '*');
+let textoGuiones = crearCadena.bind(this, "-", "-");
+let textoUnderscore = crearCadena.bind(this, "_", "_");
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
