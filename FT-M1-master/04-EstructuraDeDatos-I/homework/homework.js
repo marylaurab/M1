@@ -1,5 +1,7 @@
 'use strict'
 
+const { size } = require("@11ty/eleventy/src/TemplateCache");
+
 /*
 Definir las funciones recursivas nFactorial y nFibonacci.
 
@@ -18,8 +20,8 @@ function nFactorial(n) {
   /* Recibo un numero n, el cual debe de ser mayor o igual a 0 para poder considerarlo como
   un numero al que le podamos calcular su factorial. Si n es igual a 0 o igual a 1, devolver su factorial
   como 1. Si n es mayor o igual a 1, entonces devolver n *((n-1)*(n-2)*(n-3)...(n-(n-1)).
-  COMO VEO QUE LO QUE NECESITO REPETIR ES ESTA SITUACION: """((n-1)*(n-2)*(n-3)...((n-(n-1)))""" analizo que para ellos necesito la recursividad, que una y otra vez se itere esa situacion. Con lo cual, invocare a la funcion
-  pasandole como parametro (n-1), Por que? notese lo siguiente: (n-1)*(n-1-1)*(n-1-1-1).. etc. Y lo multiplico por la n recibida para retornar ese valor.
+  COMO VEO QUE LO QUE NECESITO REPETIR ES ESTA SITUACION: """((n-1)*(n-2)*(n-3)...((n-(n-1)))""" uso recursividad debido a.
+  pasandole como parametro (n-1), Por que? notese lo siguiente: (n-1)*(n-1-1)*(n-1-1-1).. etc. 
    */
  if (n === 0 || n === 1) {
   return 1;
@@ -27,6 +29,14 @@ function nFactorial(n) {
   return n * nFactorial(n-1); 
  }
 }
+
+
+
+
+
+
+
+
 /*
 CONTEXTO FUNCIONAL:
 -Creacion:
@@ -103,6 +113,7 @@ function nFibonacci(n) {
   /*
   
   */
+
  if (n < 2 && n >= 0) {
   return n;
  } else {
@@ -117,10 +128,31 @@ Implementar la clase Queue, sabiendo que es una estructura de tipo FIFO, donde e
   - size: retorna el tamaño (cantidad de elementos) de la queue.
 
 Pueden utilizar class o función constructora.
+
+*La funcion recibe un valor como parametro. Consulto el tamano de la fila, si es 0, coloco el valor de primero. Sino, lo coloco de ultimo.Para inciar el proceso de salida, si la fila esta vacia, retorno undefined porque no hay nada que sacar, de lo contrario, debo de eliminar el primer elemento.
+Para saber el tamano de la queue, debo de consultar su longitud.
+Donde almaceno todo esto para que me convenga? Pense en un array por sus metodos shift, push, length, etc*
 */
 
-function Queue() {
+function Queue(value) {
+  this.FIFO=[];
+  this.value=value;
+}
+Queue.prototype.enqueue = function(value) {
+  return this.FIFO.push(value);
+}
 
+Queue.prototype.dequeue = function() {
+if(this.FIFO.length===0) {
+  return undefined;
+} else {
+return this.FIFO.shift();
+  }
+}
+
+
+Queue.prototype.size = function() {
+  return this.FIFO.length;
 }
 
 // No modifiquen nada debajo de esta linea
