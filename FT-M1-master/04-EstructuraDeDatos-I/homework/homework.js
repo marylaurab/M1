@@ -131,7 +131,7 @@ Pueden utilizar class o función constructora.
 
 *La funcion recibe un valor como parametro. Consulto el tamano de la fila, si es 0, coloco el valor de primero. Sino, lo coloco de ultimo.Para inciar el proceso de salida, si la fila esta vacia, retorno undefined porque no hay nada que sacar, de lo contrario, debo de eliminar el primer elemento.
 Para saber el tamano de la queue, debo de consultar su longitud.
-Donde almaceno todo esto para que me convenga? Pense en un array por sus metodos shift, push, length, etc*
+Donde almaceno todo esto para que me convenga? Pense en un array por sus metodos shift, push, length, etc. Declaro el array dentro de la funcion constructora porque es como para vincularlos*
 */
 
 function Queue(value) {

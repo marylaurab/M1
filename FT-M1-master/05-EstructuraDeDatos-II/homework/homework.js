@@ -9,11 +9,63 @@ Implementar la clase LinkedList, definiendo los siguientes métodos:
   search(3) busca un nodo cuyo valor sea 3;
   search(isEven), donde isEven es una función que retorna true cuando recibe por parámetro un número par, busca un nodo cuyo valor sea un número par.
   En caso de que la búsqueda no arroje resultados, search debe retornar null.
+  -----------------------------------------
 */
 
-function LinkedList() {}
+function LinkedList() {
+  this._length=0;
+  this.head=null;
+}
 
-function Node(value) {}
+ function Node(value) {
+  this.value = value;
+  this.next = null;
+ }
+ 
+ LinkedList.prototype.add = function(value) {
+  let node = new Node(value)
+  if(!this.head) {
+    this.head = node;
+    this._length++ ;
+    return node;
+  } else {
+    let current = this.head;
+    while(current.next) {
+      current = current.next;
+    } current.next = node;
+    this._length++;
+    return node;
+  }
+ }
+
+ LinkedList.prototype.remove = function() {
+  if(!this.head) return null;
+  if(this.head && !this.head.next) {
+    let removedNode = this.head;
+    this.head=null;
+    this._length--;
+    return removedNode.value;
+  } else {
+    let current = this.head;
+  while(current.next.next) {
+      current = current.next;
+    } let removedNode = current.next;
+    current.next = null;
+    this._length--;
+  return removedNode.value;
+  }}
+    
+  LinkedList.prototype.search = function(x) {
+    if(!this.head) return null;
+    let current = this.head;
+    while(current) {
+      if(current.value === x) return current.value;
+      if(typeof x === 'function') {
+        if(x(current.value)) return current.value;
+      }
+      current = current.next;
+    } return null;
+  }
 
 /*
 Implementar la clase HashTable.
