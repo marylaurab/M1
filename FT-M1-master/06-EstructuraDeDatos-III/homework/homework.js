@@ -15,45 +15,43 @@
 */
 
 function BinarySearchTree(value) {
-  this.value=value;
-  this.right=null;
-  this.left=null;
+  this.value = value;
+  this.right = null;
+  this.left = null;
 }
 
-
-BinarySearchTree.prototype.size=function() {
+BinarySearchTree.prototype.size = function () {
   // Es el tama*o (1) que aporta el arbol donde estemos parados analizando + el tama*o de sus hijos.
-if(!this.left && !this.right) return 1; //Si existe un root pero sin hijos, es decir, es leaf.
-if(!this.right) return 1 + this.left.size(); // Tiene solo un hijo por la rama izq
-if(!this.left) return 1 + this.right.size(); // Tiene solo hijo por la rama der
-return 1 + this.left.size() + this.right.size(); //Tiene ambos hijos
-} //El punto de corte es cuando consigue un arbol hoja
+  if (!this.left && !this.right) return 1; //Si existe un root pero sin hijos, es decir, es leaf.
+  if (!this.right) return 1 + this.left.size(); // Tiene solo un hijo por la rama izq
+  if (!this.left) return 1 + this.right.size(); // Tiene solo hijo por la rama der
+  return 1 + this.left.size() + this.right.size(); //Tiene ambos hijos
+}; //El punto de corte es cuando consigue un arbol hoja
 
-BinarySearchTree.prototype.insert=function(value) {
+BinarySearchTree.prototype.insert = function (value) {
   //Recibe un value porque sera el valor del arbol nuevo a insertar
   //Debe de conseguir que posicion hay disponible, y ademas, si el valor
   //ingresado es mayor o menor al del arbol donde estoy parada en en ese momento.
   //Al momento de ingresar un nuevo valor, RECORDAR que estoy insertando un arbol, so..
   //debo de llamar a la funcion constructora de arbol.
   //No se retorna nada porque estoy unicamente insertando.
- 
-  if(value < this.value) {
-    if(!this.left) {
+
+  if (value < this.value) {
+    if (!this.left) {
       this.left = new BinarySearchTree(value);
     } else {
       this.left.insert(value);
     }
-  };
-  if(value > this.value)
-   {
-   if(!this.right) {
-      this.right = new BinarySearchTree(value)
+  }
+  if (value > this.value) {
+    if (!this.right) {
+      this.right = new BinarySearchTree(value);
     } else {
       this.right.insert(value);
     }
   }
 };
-BinarySearchTree.prototype.contains=function(value) {
+BinarySearchTree.prototype.contains = function (value) {
   /*Consulto si el valor coincide con el arbol root. De lo contrario, pregunto si el valor pasado por parametro es
   mayor o menor que el arbol root y dependiendo de eso ya descarto ramificaciones del arbol donde no buscare el 
   valor, ya que para un lado estan los mayores y los menores que el arbol root. Luego, consulto si ademas de ser
@@ -61,27 +59,68 @@ BinarySearchTree.prototype.contains=function(value) {
   existe en todo el arbol, sino, invoco de nuevo la funcion y le pregunto al arbol donde estoy parada lo mismo
   inicial, dependiendo de eso retornara true o false ya que sigue con el codigo inicial.
    */
-  if(this.value ===value) {
+  if (this.value === value) {
     return true;
-  };
-   if(value < this.value){
-    if(!this.left) {
-    return false;
-   } else {
-    return this.left.contains(value);
-  }};
-   if (value > this.value) {
-    if(!this.right) {
+  }
+  if (value < this.value) {
+    if (!this.left) {
+      return false;
+    } else {
+      return this.left.contains(value);
+    }
+  }
+  if (value > this.value) {
+    if (!this.right) {
       return false;
     } else {
       return this.right.contains(value);
-     }
-  } 
+    }
+  }
 };
-BinarySearchTree.prototype.depthFirstForEach=function() {
-}
-BinarySearchTree.prototype.breadthFirstForEach=function() {
-}
+BinarySearchTree.prototype.depthFirstForEach = function (cb, typeOrder) {
+  switch (typeOrder) {
+    case "pre-order": {
+      cb(this.value);
+      if (this.left) {
+        this.left.depthFirstForEach(cb, typeOrder);
+      }
+      if (this.right) {
+        this.right.depthFirstForEach(cb, typeOrder);
+      }
+      break;
+    }
+
+    case "post-order": {
+      if (this.left) {
+        this.left.depthFirstForEach(cb, typeOrder);
+      }
+      if (this.right) {
+        this.right.depthFirstForEach(cb, typeOrder);
+      }
+      cb(this.value);
+      break;
+    }
+
+    default: {
+      if (this.left) {
+        this.left.depthFirstForEach(cb, typeOrder);
+      }
+      cb(this.value);
+      if (this.right) {
+        this.right.depthFirstForEach(cb, typeOrder);
+      }
+    }
+  }
+};
+BinarySearchTree.prototype.breadthFirstForEach = function (cb, array = []) {
+  cb(this.value);
+  if (this.left) array.push(this.left);
+  if (this.right) array.push(this.right);
+  if (array.length) {
+    array.shift().breadthFirstForEach(cb, array);
+  };
+  
+};
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
