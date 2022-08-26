@@ -90,8 +90,8 @@ function selectionSort(array) {
       console.log("Comparando " + array[j] + " > " + array[posicion]);
       if (array[j] > array[posicion] && posicion < array.length) {
         console.log("Continuar");
-        continue;
-      }
+       continue; //esto es lo mismo que j++
+      } 
         posicion = j;
       
       console.log("posición ahora vale: " + posicion);
